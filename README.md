@@ -1,15 +1,16 @@
-# HNGi9
-Zuri Internship
-A description of the app and its features.
+# countriesapp
 
-A description of the code base and how it works.
+A new Flutter project.
 
-A description of the libraries you used and why you used them.
+## Getting Started
 
-A description of the challenges you faced and how you solved them.
+This project is a starting point for a Flutter application.
 
-A description of the features you would like to add if you had more time.
+A few resources to get you started if this is your first Flutter project:
 
-A link to the APK or IPA file
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-A link to the Appetize.io link
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
