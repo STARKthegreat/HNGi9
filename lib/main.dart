@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:countriesapp/Services/remote_services.dart';
+import 'package:countriesapp/model/list_model.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,12 +29,35 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  List<ListModel>? countries;
+  var isLoaded = false;
+  //Load data when page initializes
+
+  @override
+  void initState() {
+    super.initState();
+
+    //Fetch API without state manager
+    getData();
+  }
+
+  getData() async {
+    countries = await RemoteService().getCountries();
+    if (countries != null) {
+      setState((() {
+        isLoaded = true;
+      }));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(children: [
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -41,7 +68,9 @@ class _LandingPageState extends State<LandingPage> {
                   width: 120,
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      const Icon(Icons.bedtime_outlined);
+                    },
                     child: const Icon(
                       Icons.wb_sunny_outlined,
                       color: Colors.black,
@@ -55,7 +84,70 @@ class _LandingPageState extends State<LandingPage> {
                     hintText: "Search Country",
                     border: OutlineInputBorder(borderSide: BorderSide.none),
                     prefixIcon: Icon(Icons.search))),
-          ])),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: const [
+                      Icon(
+                        Icons.public,
+                        color: Colors.black,
+                      ),
+                      Text('EN')
+                    ],
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: const [
+                      Icon(
+                        Icons.filter_alt_outlined,
+                        color: Colors.black,
+                      ),
+                      Text('Filter')
+                    ],
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Visibility(
+              visible: isLoaded,
+
+              // ignore: sort_child_properties_last
+              child: Expanded(
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: countries?.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Image.asset(countries![index].flag),
+                                  Text(
+                                      countries![index].name.common.toString()),
+                                ],
+                              ),
+                            ],
+                          ));
+                    }),
+              ),
+              replacement: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
