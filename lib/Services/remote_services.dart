@@ -2,6 +2,9 @@ import 'package:countriesapp/model/list_model.dart';
 import 'package:http/http.dart' as http;
 
 class RemoteService {
+  var data = [];
+  List<ListModel> result = [];
+
   Future<List<ListModel>?> getCountries() async {
     var client = http.Client();
 
@@ -11,6 +14,6 @@ class RemoteService {
       var json = response.body;
       return listModelFromJson(json);
     }
-    return null;
+    return result;
   }
 }
