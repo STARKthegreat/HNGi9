@@ -43,22 +43,25 @@ class _LandingPageState extends State<LandingPage> {
   getData() async {
     countries = await RemoteService().getCountries();
     if (countries != null) {
-      setState((() {
+      setState(() {
         isLoaded = true;
-      }));
+      });
     }
   }
 
-  //final List<dynamic> dynamicList = RemoteService().data;
-  final displayCountries = List.from(RemoteService().result);
+  List<ListModel>? jsonArray =
+      RemoteService().getCountries() as List<ListModel>?;
+
+  //final displayCountries = List.from(
+  //  jsonArray.where((x) => x is Map && x['name'] == ['Mauritius']));
 
   void updateList(String value) {
     //this is the function that will filter our list
     setState(() {
-      displayCountries
-          .where((element) =>
-              element.name.toLowerCase().contains(value.toLowerCase()))
-          .toList();
+      jsonArray!.where((element) => element.name!.official
+          .toString()
+          .toLowerCase()
+          .contains(value.toLowerCase()));
     });
   }
 
@@ -190,17 +193,18 @@ class _LandingPageState extends State<LandingPage> {
               height: 10,
             ),
             Visibility(
-              visible: isLoaded,
-              replacement: const Center(
-                child: CircularProgressIndicator(),
-              ),
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: countries.toString().length,
-                  itemBuilder: (context, index) {
-                    return _listItem(index);
-                  }),
-            )
+                visible: isLoaded,
+                replacement: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                child: Expanded(
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: countries.toString().length,
+                      itemBuilder: (context, index) {
+                        return _listItem(index);
+                      }),
+                ))
           ],
         ),
       ),
@@ -217,7 +221,7 @@ class _LandingPageState extends State<LandingPage> {
           leading: Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             child: Image(
-              image: NetworkImage(countries![index].flags!.png),
+              image: NetworkImage(countries![index].flags!.png!),
               height: 50,
               width: 50,
             ),
@@ -245,12 +249,12 @@ class _LandingPageState extends State<LandingPage> {
                                 children: [
                                   Image(
                                     image: NetworkImage(
-                                        countries![index].flags!.png),
+                                        countries![index].flags!.png!),
                                     alignment: Alignment.topCenter,
                                   ),
                                   Image(
                                     image: NetworkImage(
-                                        countries![index].coatOfArms!.png),
+                                        countries![index].coatOfArms!.png!),
                                     alignment: Alignment.topCenter,
                                   )
                                 ],
@@ -278,12 +282,12 @@ class _LandingPageState extends State<LandingPage> {
                     Row(
                       children: [
                         const Text(
-                          'Region',
+                          'Region:',
                           style: TextStyle(
                             color: Colors.black,
                           ),
                         ),
-                        Text(countries![index].region.toString()),
+                        Text(countries![index].subregion.toString()),
                       ],
                     ),
                     const SizedBox(
@@ -320,7 +324,7 @@ class _LandingPageState extends State<LandingPage> {
                     Row(
                       children: [
                         const Text(
-                          'Independence:',
+                          'Independent:',
                           style: TextStyle(
                             color: Colors.black,
                           ),
