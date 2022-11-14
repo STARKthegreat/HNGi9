@@ -18,7 +18,7 @@ A description of the challenges you faced and how you solved them.
 A description of the features you would like to add if you had more time.
 
 A link to the Appetize.io link
-https://appetize.io/app/wxsh6jah65tdy4vkbk6sb45z2u?device=pixel4&osVersion=11.0&scale=75
+https://appetize.io/app/sq3x3x52z5umfjxa6fufvad5ze?device=pixel4&osVersion=11.0&scale=75
 
 A link to the APK or IPA file
 https://drive.google.com/file/d/1GsTYI5VmWWwVRWWF1qfpMBPAu1GBa5mm/view?usp=sharing
