@@ -2,52 +2,51 @@
 //
 //     final listModel = listModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<ListModel> listModelFromJson(String str) =>
+List<ListModel> listModelFromMap(String str) =>
     List<ListModel>.from(json.decode(str).map((x) => ListModel.fromJson(x)));
 
-String listModelToJson(List<ListModel> data) =>
+String listModelToMap(List<ListModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ListModel {
   ListModel({
-    required this.name,
-    required this.tld,
-    required this.cca2,
-    required this.ccn3,
-    required this.cca3,
-    required this.cioc,
-    required this.independent,
-    required this.status,
-    required this.unMember,
-    required this.currencies,
-    required this.idd,
-    required this.capital,
-    required this.altSpellings,
-    required this.region,
-    required this.subregion,
-    required this.languages,
-    required this.translations,
-    required this.latlng,
-    required this.landlocked,
-    required this.borders,
-    required this.area,
-    required this.demonyms,
-    required this.flag,
-    required this.maps,
-    required this.population,
-    required this.gini,
-    required this.fifa,
-    required this.car,
-    required this.timezones,
-    required this.continents,
-    required this.flags,
-    required this.coatOfArms,
-    required this.startOfWeek,
-    required this.capitalInfo,
-    required this.postalCode,
+    this.name,
+    this.tld,
+    this.cca2,
+    this.ccn3,
+    this.cca3,
+    this.cioc,
+    this.independent,
+    this.status,
+    this.unMember,
+    this.currencies,
+    this.idd,
+    this.capital,
+    this.altSpellings,
+    this.region,
+    this.subregion,
+    this.languages,
+    this.translations,
+    this.latlng,
+    this.landlocked,
+    this.borders,
+    this.area,
+    this.demonyms,
+    this.flag,
+    this.maps,
+    this.population,
+    this.gini,
+    this.fifa,
+    this.car,
+    this.timezones,
+    this.continents,
+    this.flags,
+    this.coatOfArms,
+    this.startOfWeek,
+    this.capitalInfo,
+    this.postalCode,
   });
 
   final Name? name;
@@ -151,7 +150,7 @@ class ListModel {
             json["flags"] == null ? null : CoatOfArms.fromJson(json["flags"]),
         coatOfArms: json["coatOfArms"] == null
             ? null
-            : CoatOfArms.fromJson(json["coatOfArms"]),
+            : CoatOfArms.fromJson(json["flags"]),
         startOfWeek: json["startOfWeek"] == null
             ? null
             : startOfWeekValues.map[json["startOfWeek"]],
@@ -166,13 +165,13 @@ class ListModel {
   Map<String, dynamic> toJson() => {
         "name": name == null ? null : name!.toJson(),
         "tld": tld == null ? null : List<dynamic>.from(tld!.map((x) => x)),
-        "cca2": cca2 == null ? null : cca2,
-        "ccn3": ccn3 == null ? null : ccn3,
-        "cca3": cca3 == null ? null : cca3,
-        "cioc": cioc == null ? null : cioc,
-        "independent": independent == null ? null : independent,
+        "cca2": cca2 == null ? null : cca2!,
+        "ccn3": ccn3 == null ? null : ccn3!,
+        "cca3": cca3 == null ? null : cca3!,
+        "cioc": cioc == null ? null : cioc!,
+        "independent": independent == null ? null : independent!,
         "status": status == null ? null : statusValues.reverse![status],
-        "unMember": unMember == null ? null : unMember,
+        "unMember": unMember == null ? null : unMember!,
         "currencies": currencies == null ? null : currencies!.toJson(),
         "idd": idd == null ? null : idd!.toJson(),
         "capital":
@@ -181,7 +180,7 @@ class ListModel {
             ? null
             : List<dynamic>.from(altSpellings!.map((x) => x)),
         "region": region == null ? null : regionValues.reverse![region],
-        "subregion": subregion == null ? null : subregion,
+        "subregion": subregion == null ? null : subregion!,
         "languages": languages == null
             ? null
             : Map.from(languages!)
@@ -192,18 +191,18 @@ class ListModel {
                 .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
         "latlng":
             latlng == null ? null : List<dynamic>.from(latlng!.map((x) => x)),
-        "landlocked": landlocked == null ? null : landlocked,
+        "landlocked": landlocked == null ? null : landlocked!,
         "borders":
             borders == null ? null : List<dynamic>.from(borders!.map((x) => x)),
-        "area": area == null ? null : area,
+        "area": area == null ? null : area!,
         "demonyms": demonyms == null ? null : demonyms!.toJson(),
-        "flag": flag == null ? null : flag,
+        "flag": flag == null ? null : flag!,
         "maps": maps == null ? null : maps!.toJson(),
-        "population": population == null ? null : population,
+        "population": population == null ? null : population!,
         "gini": gini == null
             ? null
             : Map.from(gini!).map((k, v) => MapEntry<String, dynamic>(k, v)),
-        "fifa": fifa == null ? null : fifa,
+        "fifa": fifa == null ? null : fifa!,
         "car": car == null ? null : car!.toJson(),
         "timezones": timezones == null
             ? null
@@ -224,7 +223,7 @@ class ListModel {
 
 class CapitalInfo {
   CapitalInfo({
-    required this.latlng,
+    this.latlng,
   });
 
   final List<double>? latlng;
@@ -243,8 +242,8 @@ class CapitalInfo {
 
 class Car {
   Car({
-    required this.signs,
-    required this.side,
+    this.signs,
+    this.side,
   });
 
   final List<String>? signs;
@@ -270,12 +269,12 @@ final sideValues = EnumValues({"left": Side.LEFT, "right": Side.RIGHT});
 
 class CoatOfArms {
   CoatOfArms({
-    required this.png,
-    required this.svg,
+    this.png,
+    this.svg,
   });
 
-  final String png;
-  final String svg;
+  final String? png;
+  final String? svg;
 
   factory CoatOfArms.fromJson(Map<String, dynamic> json) => CoatOfArms(
         png: json["png"] == null ? null : json["png"],
@@ -310,169 +309,169 @@ final continentValues = EnumValues({
 
 class Currencies {
   Currencies({
-    required this.mru,
-    required this.awg,
-    required this.ars,
-    required this.sek,
-    required this.mvr,
-    required this.mxn,
-    required this.nzd,
-    required this.usd,
-    required this.xpf,
-    required this.eur,
-    required this.pkr,
-    required this.zmw,
-    required this.scr,
-    required this.myr,
-    required this.nok,
-    required this.uzs,
-    required this.vuv,
-    required this.aud,
-    required this.sgd,
-    required this.srd,
-    required this.dzd,
-    required this.mad,
-    required this.crc,
-    required this.lyd,
-    required this.qar,
-    required this.dkk,
-    required this.mur,
-    required this.kzt,
-    required this.all,
-    required this.bhd,
-    required this.pgk,
-    required this.bif,
-    required this.inr,
-    required this.uyu,
-    required this.xcd,
-    required this.bbd,
-    required this.mop,
-    required this.gbp,
-    required this.imp,
-    required this.syp,
-    required this.ang,
-    required this.xof,
-    required this.kgs,
-    required this.ttd,
-    required this.egp,
-    required this.ils,
-    required this.jod,
-    required this.mga,
-    required this.hrk,
-    required this.fok,
-    required this.htg,
-    required this.ckd,
-    required this.cuc,
-    required this.cup,
-    required this.twd,
-    required this.szl,
-    required this.zar,
-    required this.uah,
-    required this.bmd,
-    required this.krw,
-    required this.pen,
-    required this.iqd,
-    required this.mdl,
-    required this.ves,
-    required this.gyd,
-    required this.kyd,
-    required this.khr,
-    required this.lkr,
-    required this.sdg,
-    required this.ern,
-    required this.sos,
-    required this.kmf,
-    required this.nio,
-    required this.rub,
-    required this.ugx,
-    required this.chf,
-    required this.tjs,
-    required this.ssp,
-    required this.czk,
-    required this.bwp,
-    required this.tnd,
-    required this.jmd,
-    required this.mzn,
-    required this.hnl,
-    required this.azn,
-    required this.mkd,
-    required this.gmd,
-    required this.lrd,
-    required this.cve,
-    required this.bsd,
-    required this.gel,
-    required this.kid,
-    required this.tzs,
-    required this.cny,
-    required this.gtq,
-    required this.stn,
-    required this.sll,
-    required this.xaf,
-    required this.thb,
-    required this.idr,
-    required this.gip,
-    required this.tmt,
-    required this.dop,
-    required this.ghs,
-    required this.jep,
-    required this.currenciesTry,
-    required this.tvd,
-    required this.irr,
-    required this.kes,
-    required this.bgn,
-    required this.zwl,
-    required this.aoa,
-    required this.ngn,
-    required this.pln,
-    required this.shp,
-    required this.lbp,
-    required this.wst,
-    required this.php,
-    required this.ggp,
-    required this.kwd,
-    required this.top,
-    required this.omr,
-    required this.afn,
-    required this.rsd,
-    required this.amd,
-    required this.bdt,
-    required this.lak,
-    required this.clp,
-    required this.pab,
-    required this.npr,
-    required this.mmk,
-    required this.fkp,
-    required this.huf,
-    required this.gnf,
-    required this.aed,
-    required this.bam,
-    required this.mwk,
-    required this.btn,
-    required this.cdf,
-    required this.vnd,
-    required this.brl,
-    required this.bzd,
-    required this.pyg,
-    required this.bnd,
-    required this.bob,
-    required this.djf,
-    required this.cad,
-    required this.jpy,
-    required this.rwf,
-    required this.isk,
-    required this.byn,
-    required this.hkd,
-    required this.lsl,
-    required this.fjd,
-    required this.cop,
-    required this.sar,
-    required this.etb,
-    required this.kpw,
-    required this.nad,
-    required this.mnt,
-    required this.sbd,
-    required this.yer,
-    required this.ron,
+    this.mru,
+    this.awg,
+    this.ars,
+    this.sek,
+    this.mvr,
+    this.mxn,
+    this.nzd,
+    this.usd,
+    this.xpf,
+    this.eur,
+    this.pkr,
+    this.zmw,
+    this.scr,
+    this.myr,
+    this.nok,
+    this.uzs,
+    this.vuv,
+    this.aud,
+    this.sgd,
+    this.srd,
+    this.dzd,
+    this.mad,
+    this.crc,
+    this.lyd,
+    this.qar,
+    this.dkk,
+    this.mur,
+    this.kzt,
+    this.all,
+    this.bhd,
+    this.pgk,
+    this.bif,
+    this.inr,
+    this.uyu,
+    this.xcd,
+    this.bbd,
+    this.mop,
+    this.gbp,
+    this.imp,
+    this.syp,
+    this.ang,
+    this.xof,
+    this.kgs,
+    this.ttd,
+    this.egp,
+    this.ils,
+    this.jod,
+    this.mga,
+    this.hrk,
+    this.fok,
+    this.htg,
+    this.ckd,
+    this.cuc,
+    this.cup,
+    this.twd,
+    this.szl,
+    this.zar,
+    this.uah,
+    this.bmd,
+    this.krw,
+    this.pen,
+    this.iqd,
+    this.mdl,
+    this.ves,
+    this.gyd,
+    this.kyd,
+    this.khr,
+    this.lkr,
+    this.sdg,
+    this.ern,
+    this.sos,
+    this.kmf,
+    this.nio,
+    this.rub,
+    this.ugx,
+    this.chf,
+    this.tjs,
+    this.ssp,
+    this.czk,
+    this.bwp,
+    this.tnd,
+    this.jmd,
+    this.mzn,
+    this.hnl,
+    this.azn,
+    this.mkd,
+    this.gmd,
+    this.lrd,
+    this.cve,
+    this.bsd,
+    this.gel,
+    this.kid,
+    this.tzs,
+    this.cny,
+    this.gtq,
+    this.stn,
+    this.sll,
+    this.xaf,
+    this.thb,
+    this.idr,
+    this.gip,
+    this.tmt,
+    this.dop,
+    this.ghs,
+    this.jep,
+    this.currenciesTry,
+    this.tvd,
+    this.irr,
+    this.kes,
+    this.bgn,
+    this.zwl,
+    this.aoa,
+    this.ngn,
+    this.pln,
+    this.shp,
+    this.lbp,
+    this.wst,
+    this.php,
+    this.ggp,
+    this.kwd,
+    this.top,
+    this.omr,
+    this.afn,
+    this.rsd,
+    this.amd,
+    this.bdt,
+    this.lak,
+    this.clp,
+    this.pab,
+    this.npr,
+    this.mmk,
+    this.fkp,
+    this.huf,
+    this.gnf,
+    this.aed,
+    this.bam,
+    this.mwk,
+    this.btn,
+    this.cdf,
+    this.vnd,
+    this.brl,
+    this.bzd,
+    this.pyg,
+    this.bnd,
+    this.bob,
+    this.djf,
+    this.cad,
+    this.jpy,
+    this.rwf,
+    this.isk,
+    this.byn,
+    this.hkd,
+    this.lsl,
+    this.fjd,
+    this.cop,
+    this.sar,
+    this.etb,
+    this.kpw,
+    this.nad,
+    this.mnt,
+    this.sbd,
+    this.yer,
+    this.ron,
   });
 
   final Aed? mru;
@@ -974,12 +973,12 @@ class Currencies {
 
 class Aed {
   Aed({
-    required this.name,
-    required this.symbol,
+    this.name,
+    this.symbol,
   });
 
-  final String name;
-  final String symbol;
+  final String? name;
+  final String? symbol;
 
   factory Aed.fromJson(Map<String, dynamic> json) => Aed(
         name: json["name"] == null ? null : json["name"],
@@ -994,10 +993,10 @@ class Aed {
 
 class Bam {
   Bam({
-    required this.name,
+    this.name,
   });
 
-  final String name;
+  final String? name;
 
   factory Bam.fromJson(Map<String, dynamic> json) => Bam(
         name: json["name"] == null ? null : json["name"],
@@ -1010,8 +1009,8 @@ class Bam {
 
 class Demonyms {
   Demonyms({
-    required this.eng,
-    required this.fra,
+    this.eng,
+    this.fra,
   });
 
   final Eng? eng;
@@ -1030,12 +1029,12 @@ class Demonyms {
 
 class Eng {
   Eng({
-    required this.f,
-    required this.m,
+    this.f,
+    this.m,
   });
 
-  final String f;
-  final String m;
+  final String? f;
+  final String? m;
 
   factory Eng.fromJson(Map<String, dynamic> json) => Eng(
         f: json["f"] == null ? null : json["f"],
@@ -1050,8 +1049,8 @@ class Eng {
 
 class Idd {
   Idd({
-    required this.root,
-    required this.suffixes,
+    this.root,
+    this.suffixes,
   });
 
   final String? root;
@@ -1074,12 +1073,12 @@ class Idd {
 
 class Maps {
   Maps({
-    required this.googleMaps,
-    required this.openStreetMaps,
+    this.googleMaps,
+    this.openStreetMaps,
   });
 
-  final String googleMaps;
-  final String openStreetMaps;
+  final String? googleMaps;
+  final String? openStreetMaps;
 
   factory Maps.fromJson(Map<String, dynamic> json) => Maps(
         googleMaps: json["googleMaps"] == null ? null : json["googleMaps"],
@@ -1095,13 +1094,13 @@ class Maps {
 
 class Name {
   Name({
-    required this.common,
-    required this.official,
-    required this.nativeName,
+    this.common,
+    this.official,
+    this.nativeName,
   });
 
-  final String common;
-  final String official;
+  final String? common;
+  final String? official;
   final Map<String, Translation>? nativeName;
 
   factory Name.fromJson(Map<String, dynamic> json) => Name(
@@ -1125,12 +1124,12 @@ class Name {
 
 class Translation {
   Translation({
-    required this.official,
-    required this.common,
+    this.official,
+    this.common,
   });
 
-  final String official;
-  final String common;
+  final String? official;
+  final String? common;
 
   factory Translation.fromJson(Map<String, dynamic> json) => Translation(
         official: json["official"] == null ? null : json["official"],
@@ -1145,12 +1144,12 @@ class Translation {
 
 class PostalCode {
   PostalCode({
-    required this.format,
-    required this.regex,
+    this.format,
+    this.regex,
   });
 
-  final String format;
-  final String regex;
+  final String? format;
+  final String? regex;
 
   factory PostalCode.fromJson(Map<String, dynamic> json) => PostalCode(
         format: json["format"] == null ? null : json["format"],
