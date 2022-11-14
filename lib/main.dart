@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const LandingPage(),
-      theme: ThemeData(primarySwatch: Colors.blueGrey),
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
     );
   }
 }
@@ -31,22 +31,35 @@ class _LandingPageState extends State<LandingPage> {
   List<ListModel>? countries;
   var isLoaded = false;
   //Load data when page initializes
-  RemoteService _remoteService = RemoteService();
-  // @override
-  //void initState() {
-  // super.initState();
 
-  //Fetch API without state manager
-  //getData();
-  //}
+  @override
+  void initState() {
+    super.initState();
 
-  Future<void> getData() async {
+    //Fetch API without state manager
+    getData();
+  }
+
+  getData() async {
     countries = await RemoteService().getCountries();
     if (countries != null) {
       setState((() {
         isLoaded = true;
       }));
     }
+  }
+
+  //final List<dynamic> dynamicList = RemoteService().data;
+  final displayCountries = List.from(RemoteService().result);
+
+  void updateList(String value) {
+    //this is the function that will filter our list
+    setState(() {
+      displayCountries
+          .where((element) =>
+              element.name.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
   }
 
   @override
@@ -59,6 +72,7 @@ class _LandingPageState extends State<LandingPage> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(
                   'images/ex_logo.png',
@@ -76,42 +90,100 @@ class _LandingPageState extends State<LandingPage> {
                     ))
               ],
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              onChanged: (value) => updateList(value),
+              decoration: const InputDecoration(
                   filled: true,
                   fillColor: Color.fromARGB(97, 133, 122, 122),
                   hintText: "Search Country",
                   border: OutlineInputBorder(borderSide: BorderSide.none),
                   prefixIcon: Icon(Icons.search)),
-              onChanged: null,
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Column(
+                            children: [
+                              ListTile(
+                                title: Text('Language'),
+                                trailing: IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(Icons.close)),
+                              ),
+                              ListTile(
+                                title: Text('English'),
+                                trailing: IconButton(
+                                    onPressed: () {
+                                      //Icon(Icons.radio_button_checked);
+                                    },
+                                    icon: Icon(Icons.radio_button_off)),
+                              )
+                            ],
+                          );
+                        });
+                  },
                   child: Row(
                     children: const [
                       Icon(
                         Icons.language,
                         color: Colors.black,
                       ),
-                      Text('EN')
+                      Text(
+                        'EN',
+                        style: TextStyle(color: Colors.black),
+                      )
                     ],
                   ),
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Column(
+                            children: [
+                              ListTile(
+                                title: Text('Filter'),
+                                trailing: IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(Icons.close)),
+                              ),
+                              ListTile(
+                                  title: Text('Continent'),
+                                  trailing: DropdownButton(
+                                    onChanged: (value) {},
+                                    items: [],
+                                  ))
+                            ],
+                          );
+                        });
+                  },
                   child: Row(
-                    children: const [
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Icon(
                         Icons.filter_alt_outlined,
                         color: Colors.black,
                       ),
-                      Text('Filter')
+                      Text(
+                        'Filter',
+                        style: TextStyle(color: Colors.black),
+                      )
                     ],
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(
@@ -119,30 +191,15 @@ class _LandingPageState extends State<LandingPage> {
             ),
             Visibility(
               visible: isLoaded,
-
-              // ignore: sort_child_properties_last
-              child: Expanded(
-                  child: FutureBuilder<List<ListModel>?>(
-                future: _remoteService.getCountries(),
-                builder: ((context, snapshot) {
-                  var data = snapshot.data;
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: countries.toString().length,
-                      itemBuilder: (context, index) {
-                        return _listItem(index);
-                      });
-                }),
-              )),
-
               replacement: const Center(
                 child: CircularProgressIndicator(),
               ),
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: countries.toString().length,
+                  itemBuilder: (context, index) {
+                    return _listItem(index);
+                  }),
             )
           ],
         ),
