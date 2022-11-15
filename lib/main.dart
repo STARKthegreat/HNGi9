@@ -105,20 +105,20 @@ class _LandingPageState extends State<LandingPage> {
                           return Column(
                             children: [
                               ListTile(
-                                title: Text('Language'),
+                                title: const Text('Language'),
                                 trailing: IconButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    icon: Icon(Icons.close)),
+                                    icon: const Icon(Icons.close)),
                               ),
                               ListTile(
-                                title: Text('English'),
+                                title: const Text('English'),
                                 trailing: IconButton(
                                     onPressed: () {
                                       //Icon(Icons.radio_button_checked);
                                     },
-                                    icon: Icon(Icons.radio_button_off)),
+                                    icon: const Icon(Icons.radio_button_off)),
                               )
                             ],
                           );
@@ -145,18 +145,18 @@ class _LandingPageState extends State<LandingPage> {
                           return Column(
                             children: [
                               ListTile(
-                                title: Text('Filter'),
+                                title: const Text('Filter'),
                                 trailing: IconButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    icon: Icon(Icons.close)),
+                                    icon: const Icon(Icons.close)),
                               ),
                               ListTile(
-                                  title: Text('Continent'),
+                                  title: const Text('Continent'),
                                   trailing: DropdownButton(
                                     onChanged: (value) {},
-                                    items: [],
+                                    items: const [],
                                   ))
                             ],
                           );
@@ -164,7 +164,7 @@ class _LandingPageState extends State<LandingPage> {
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.filter_alt_outlined,
                         color: Colors.black,
