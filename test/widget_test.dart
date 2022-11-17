@@ -6,11 +6,14 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:countriesapp/main.dart';
+import 'package:flutter/material.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  Widget testWidget = const MediaQuery(
+      data: MediaQueryData(), child: MaterialApp(home: LandingPage()));
   testWidgets('description', (tester) async {
-    await tester.pumpWidget(const LandingPage());
+    await tester.pumpWidget(testWidget);
   });
 }
