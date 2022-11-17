@@ -22,7 +22,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '12.x'
-        distribution: temurin
+        distribution: 'zulu'
     - name: Set up flutter
       # Set up Flutter.
       uses: subosito/flutter-action@v2
