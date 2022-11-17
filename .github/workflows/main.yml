@@ -29,9 +29,9 @@ jobs:
         channel: 'stable'
     - run: flutter doctor -v
 
-      #- run: flutter config --enable-macos
-    # Checkout gritty grammar code and get packages.
+    - run: flutter config --enable-macos
     - name: Checkout gritty grammar code
+      # Checkout gritty grammar code and get packages.
       uses: actions/checkout@v3
     - run: flutter pub get -v
 
@@ -55,11 +55,10 @@ jobs:
 
     - name: Get pub dependencies
       run: flutter pub get
+
+    - name: Flutter analyze
+      run: flutter analyze
     - name: Flutter test
-
-      #  run: flutter analyze
-
-      # - name: Flutter analyze
       run: flutter test
 
 

@@ -2,6 +2,8 @@
 //
 //     final listModel = listModelFromJson(jsonString);
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 List<ListModel> listModelFromJson(String str) =>
@@ -90,14 +92,14 @@ class ListModel {
         tld: json["tld"] == null
             ? null
             : List<String>.from(json["tld"].map((x) => x)),
-        cca2: json["cca2"] == null ? null : json["cca2"],
-        ccn3: json["ccn3"] == null ? null : json["ccn3"],
-        cca3: json["cca3"] == null ? null : json["cca3"],
-        cioc: json["cioc"] == null ? null : json["cioc"],
-        independent: json["independent"] == null ? null : json["independent"],
+        cca2: json["cca2"],
+        ccn3: json["ccn3"],
+        cca3: json["cca3"],
+        cioc: json["cioc"],
+        independent: json["independent"],
         status:
             json["status"] == null ? null : statusValues.map[json["status"]],
-        unMember: json["unMember"] == null ? null : json["unMember"],
+        unMember: json["unMember"],
         currencies: json["currencies"] == null
             ? null
             : Currencies.fromJson(json["currencies"]),
@@ -110,7 +112,7 @@ class ListModel {
             : List<String>.from(json["altSpellings"].map((x) => x)),
         region:
             json["region"] == null ? null : regionValues.map[json["region"]],
-        subregion: json["subregion"] == null ? null : json["subregion"],
+        subregion: json["subregion"] ?? json["subregion"],
         languages: json["languages"] == null
             ? null
             : Map.from(json["languages"])
@@ -122,22 +124,22 @@ class ListModel {
         latlng: json["latlng"] == null
             ? null
             : List<double>.from(json["latlng"].map((x) => x.toDouble())),
-        landlocked: json["landlocked"] == null ? null : json["landlocked"],
+        landlocked: json["landlocked"] ?? json["landlocked"],
         borders: json["borders"] == null
             ? null
             : List<String>.from(json["borders"].map((x) => x)),
-        area: json["area"] == null ? null : json["area"].toDouble(),
+        area: json["area"].toDouble(),
         demonyms: json["demonyms"] == null
             ? null
             : Demonyms.fromJson(json["demonyms"]),
-        flag: json["flag"] == null ? null : json["flag"],
+        flag: json["flag"] ?? json["flag"],
         maps: json["maps"] == null ? null : Maps.fromJson(json["maps"]),
-        population: json["population"] == null ? null : json["population"],
+        population: json["population"] ?? json["population"],
         gini: json["gini"] == null
             ? null
             : Map.from(json["gini"])
                 .map((k, v) => MapEntry<String, double>(k, v.toDouble())),
-        fifa: json["fifa"] == null ? null : json["fifa"],
+        fifa: json["fifa"] ?? json["fifa"],
         car: json["car"] == null ? null : Car.fromJson(json["car"]),
         timezones: json["timezones"] == null
             ? null
@@ -263,9 +265,9 @@ class Car {
       };
 }
 
-enum Side { RIGHT, LEFT }
+enum Side { right, left }
 
-final sideValues = EnumValues({"left": Side.LEFT, "right": Side.RIGHT});
+final sideValues = EnumValues({"left": Side.left, "right": Side.right});
 
 class CoatOfArms {
   CoatOfArms({
@@ -277,13 +279,13 @@ class CoatOfArms {
   final String? svg;
 
   factory CoatOfArms.fromJson(Map<String, dynamic> json) => CoatOfArms(
-        png: json["png"] == null ? null : json["png"],
-        svg: json["svg"] == null ? null : json["svg"],
+        png: json["png"] ?? json["png"],
+        svg: json["svg"] ?? json["svg"],
       );
 
   Map<String, dynamic> toJson() => {
-        "png": png == null ? null : png,
-        "svg": svg == null ? null : svg,
+        "png": png ?? png,
+        "svg": svg ?? svg,
       };
 }
 
@@ -981,13 +983,13 @@ class Aed {
   final String? symbol;
 
   factory Aed.fromJson(Map<String, dynamic> json) => Aed(
-        name: json["name"] == null ? null : json["name"],
-        symbol: json["symbol"] == null ? null : json["symbol"],
+        name: json["name"] ?? json["name"],
+        symbol: json["symbol"] ?? json["symbol"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "symbol": symbol == null ? null : symbol,
+        "name": name ?? name,
+        "symbol": symbol ?? symbol,
       };
 }
 
@@ -999,11 +1001,11 @@ class Bam {
   final String? name;
 
   factory Bam.fromJson(Map<String, dynamic> json) => Bam(
-        name: json["name"] == null ? null : json["name"],
+        name: json["name"] ?? json["name"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
+        "name": name ?? name,
       };
 }
 
@@ -1037,13 +1039,13 @@ class Eng {
   final String? m;
 
   factory Eng.fromJson(Map<String, dynamic> json) => Eng(
-        f: json["f"] == null ? null : json["f"],
-        m: json["m"] == null ? null : json["m"],
+        f: json["f"] ?? json["f"],
+        m: json["m"] ?? json["m"],
       );
 
   Map<String, dynamic> toJson() => {
-        "f": f == null ? null : f,
-        "m": m == null ? null : m,
+        "f": f ?? f,
+        "m": m ?? m,
       };
 }
 
@@ -1057,14 +1059,14 @@ class Idd {
   final List<String>? suffixes;
 
   factory Idd.fromJson(Map<String, dynamic> json) => Idd(
-        root: json["root"] == null ? null : json["root"],
+        root: json["root"] ?? json["root"],
         suffixes: json["suffixes"] == null
             ? null
             : List<String>.from(json["suffixes"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "root": root == null ? null : root,
+        "root": root ?? root,
         "suffixes": suffixes == null
             ? null
             : List<dynamic>.from(suffixes!.map((x) => x)),
@@ -1081,14 +1083,13 @@ class Maps {
   final String? openStreetMaps;
 
   factory Maps.fromJson(Map<String, dynamic> json) => Maps(
-        googleMaps: json["googleMaps"] == null ? null : json["googleMaps"],
-        openStreetMaps:
-            json["openStreetMaps"] == null ? null : json["openStreetMaps"],
+        googleMaps: json["googleMaps"] ?? json["googleMaps"],
+        openStreetMaps: json["openStreetMaps"] ?? json["openStreetMaps"],
       );
 
   Map<String, dynamic> toJson() => {
-        "googleMaps": googleMaps == null ? null : googleMaps,
-        "openStreetMaps": openStreetMaps == null ? null : openStreetMaps,
+        "googleMaps": googleMaps ?? googleMaps,
+        "openStreetMaps": openStreetMaps ?? openStreetMaps,
       };
 }
 
@@ -1104,8 +1105,8 @@ class Name {
   final Map<String, Translation>? nativeName;
 
   factory Name.fromJson(Map<String, dynamic> json) => Name(
-        common: json["common"] == null ? null : json["common"],
-        official: json["official"] == null ? null : json["official"],
+        common: json["common"] ?? json["common"],
+        official: json["official"] ?? json["official"],
         nativeName: json["nativeName"] == null
             ? null
             : Map.from(json["nativeName"]).map((k, v) =>
@@ -1113,8 +1114,8 @@ class Name {
       );
 
   Map<String, dynamic> toJson() => {
-        "common": common == null ? null : common,
-        "official": official == null ? null : official,
+        "common": common ?? common,
+        "official": official ?? official,
         "nativeName": nativeName == null
             ? null
             : Map.from(nativeName!)
@@ -1132,13 +1133,13 @@ class Translation {
   final String? common;
 
   factory Translation.fromJson(Map<String, dynamic> json) => Translation(
-        official: json["official"] == null ? null : json["official"],
-        common: json["common"] == null ? null : json["common"],
+        official: json["official"] ?? json["official"],
+        common: json["common"] ?? json["common"],
       );
 
   Map<String, dynamic> toJson() => {
-        "official": official == null ? null : official,
-        "common": common == null ? null : common,
+        "official": official ?? official,
+        "common": common ?? common,
       };
 }
 
@@ -1152,13 +1153,13 @@ class PostalCode {
   final String? regex;
 
   factory PostalCode.fromJson(Map<String, dynamic> json) => PostalCode(
-        format: json["format"] == null ? null : json["format"],
-        regex: json["regex"] == null ? null : json["regex"],
+        format: json["format"] ?? json["format"],
+        regex: json["regex"] ?? json["regex"],
       );
 
   Map<String, dynamic> toJson() => {
-        "format": format == null ? null : format,
-        "regex": regex == null ? null : regex,
+        "format": format ?? format,
+        "regex": regex ?? regex,
       };
 }
 
