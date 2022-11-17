@@ -55,10 +55,10 @@ jobs:
 
     - name: Get pub dependencies
       run: flutter pub get
-
     #  run: flutter analyze
 
     - name: Flutter test
+
       # - name: Flutter analyze
       run: flutter test
 
