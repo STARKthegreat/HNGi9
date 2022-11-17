@@ -2,6 +2,7 @@ name: Ricky Roll
 on:
   issues:
     types:[opened]
+    
 jobs:
   comment:
     runs-on: ubuntu-latest
