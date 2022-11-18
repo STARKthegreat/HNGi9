@@ -1,6 +1,6 @@
 on:
   issues:
-    types: [opened]
+    types: opened
 permissions: write-all
 
 jobs:
@@ -11,4 +11,4 @@ jobs:
       uses: TejasvOnly/random-rickroll@v1.0
       with:
         percentage: 100
-        ##GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
