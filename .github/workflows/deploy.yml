@@ -50,7 +50,7 @@ jobs:
     - name: Build Debug APK
       run: ./gradlew assembleDebug
     - name: Releasing using Hub
-      uses: ShaunLWM/action-release-debugapk@v2
+      uses: ShaunLWM/action-release-debugapk@v0.0.7
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
         APP_FOLDER: build/outputs/apk
