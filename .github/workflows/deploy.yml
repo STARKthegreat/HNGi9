@@ -33,86 +33,25 @@ jobs:
         draft: true
         prerelease: false
         generate_release_notes: true
-        
-  create-build:
-    name: Create ${{ matrix.target }} build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        target: [macOS, Ubuntu]
-        include:
-        - os: macos-latest
-          target: macOS
-          build_target: macos
-          build_path: build/macos/Build/Products/Release
-          asset_extension: .zip
-          asset_content_type: application/zip
-        - os: ubuntu-latest
-          target: Android
-          build_target: apk
-          build_path: build/app/outputs/flutter-apk
-          asset_extension: .apk
-          asset_content_type: application/vnd.android.package-archive
-          # Disable fail-fast as we want results from all even if one fails.
-      fail-fast: false
-    needs: draft-release
+
+
+  build:
+    runs-on: ubuntu-latest
     steps:
-    # Set up Flutter.
-    - name: Clone Flutter repository with master channel
-      uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
+    - uses: actions/checkout@v1
+    - name: set up JDK 1.8
+      uses: actions/setup-java@v1
       with:
-        channel: master
-    - name: Install Android dependencies
-      if: matrix.target == 'Android'
-      uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc
-      with:
-        java-version: "12.x"
-        distribution: temurin
-    - run: flutter doctor -v
-    - name: Checkout master code
-      # Checkout gallery code, recreate missing files, and get packages.
-      uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-    - run: flutter create .
-    - run: flutter pub get
-
-    - name: Configure Keystore for Android
-      if: matrix.target == 'Android'
-      run: |
-        echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
-        echo "storeFile=upload-keystore.jks" >> key.properties
-        echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-        echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-        echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+        java-version: 1.8
+    - name: Make Gradle executable
+      run: chmod +x ./gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+    - name: Releasing using gitHub
+      uses: ShaunLWM/action-release-debugapk@master
       env:
-        PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-        KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-        KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-        KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-      working-directory: android
-
-    # Build the application.
-    - run: flutter build -v ${{ matrix.build_target }} --release
-
-    # Package the build.
-    - name: Rename build for Android
-      if: matrix.target == 'Android'
-      run: mv app-release.apk $GITHUB_WORKSPACE/countries_app_${{ matrix.target }}.apk
-      working-directory: ${{ matrix.build_path }}
-    - name: Compress build for macOS
-      if: matrix.target == 'macOS'
-      run: ditto -c -k --sequesterRsrc --keepParent Flutter\ Gallery.app $GITHUB_WORKSPACE/flutter_gallery_${{ matrix.target }}.zip
-      working-directory: ${{ matrix.build_path }}
-
-    # Upload the build.
-    - name: Add packaged build to release draft
-      id: upload_release_asset
-      uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5
-      env:
-        GITHUB_TOKEN: ${{ secrets.FLUTTERGALLERYRELEASEBOT_TOKEN }}
-      with:
-        upload_url: ${{ needs.draft-release.outputs.upload_url }}
-        asset_path: ./flutter_gallery_${{ matrix.target }}${{ matrix.asset_extension }}
-        asset_name: Explore_${{ matrix.target }}${{ matrix.asset_extension }}
-        asset_content_type: ${{ matrix.asset_content_type }}
-        overwrite: true
-
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        APP_FOLDER: app
+        RELEASE_TITLE: New Build
