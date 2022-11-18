@@ -12,7 +12,6 @@ jobs:
 
     - uses: actions/checkout@v2
     - name: Unit tests
-
       run: ./gradlew test # use can use another command to run juni test like: ./gradlew testDebugUnitTest
       continue-on-error: true # IMPORTANT: allow pipeline to continue to Android Test Report step
 
@@ -52,6 +51,6 @@ jobs:
     - name: Releasing using Hub
       uses: ShaunLWM/action-release-debugapk@master
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{secrets.TOKEN }}
         APP_FOLDER: build/outputs/apk
         RELEASE_TITLE: New Build
