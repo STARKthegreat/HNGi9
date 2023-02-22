@@ -186,16 +186,17 @@ class _LandingPageState extends State<LandingPage> {
                 replacement: const Center(
                   child: CircularProgressIndicator(),
                 ),
-                child: Expanded(
-                    child: SizedBox(
-                  height: 200,
+                //child: Expanded(
+                child: SizedBox(
+                  height: 570,
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: countries.toString().length,
                       itemBuilder: (context, index) {
                         return _listItem(index);
                       }),
-                )))
+                ))
+            //)
           ],
         ),
       ),

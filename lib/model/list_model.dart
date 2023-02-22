@@ -4,6 +4,8 @@
 
 // ignore_for_file: constant_identifier_names
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 List<ListModel> listModelFromJson(String str) =>
@@ -97,8 +99,14 @@ class ListModel {
         cca3: json["cca3"],
         cioc: json["cioc"],
         independent: json["independent"],
+        cca2: json["cca2"],
+        ccn3: json["ccn3"],
+        cca3: json["cca3"],
+        cioc: json["cioc"],
+        independent: json["independent"],
         status:
             json["status"] == null ? null : statusValues.map[json["status"]],
+        unMember: json["unMember"],
         unMember: json["unMember"],
         currencies: json["currencies"] == null
             ? null
@@ -265,9 +273,9 @@ class Car {
       };
 }
 
-enum Side { RIGHT, LEFT }
+enum Side { right, left }
 
-final sideValues = EnumValues({"left": Side.LEFT, "right": Side.RIGHT});
+final sideValues = EnumValues({"left": Side.left, "right": Side.right});
 
 class CoatOfArms {
   CoatOfArms({
