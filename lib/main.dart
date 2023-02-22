@@ -220,196 +220,201 @@ class _LandingPageState extends State<LandingPage> {
           title: Text(countries![index].name!.official.toString()),
           subtitle: Text(countries![index].capital.toString()),
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              return Scaffold(
-                appBar: AppBar(
-                  title: Text(countries![index].name!.common.toString()),
-                  centerTitle: true,
-                ),
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 200,
-                      child: Expanded(
-                        child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              Row(
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Text(countries![index].name!.common.toString()),
+                      centerTitle: true,
+                    ),
+                    body: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 200,
+                          child: Expanded(
+                            child: ListView(
+                                scrollDirection: Axis.horizontal,
                                 children: [
-                                  Image(
-                                    image: NetworkImage(
-                                        countries![index].flags!.png!),
-                                    alignment: Alignment.topCenter,
+                                  Row(
+                                    children: [
+                                      Image(
+                                        image: NetworkImage(
+                                            countries![index].flags!.png!),
+                                        alignment: Alignment.topCenter,
+                                      ),
+                                      Image(
+                                        image: NetworkImage(
+                                            countries![index].coatOfArms!.png!),
+                                        alignment: Alignment.topCenter,
+                                      )
+                                    ],
                                   ),
-                                  Image(
-                                    image: NetworkImage(
-                                        countries![index].coatOfArms!.png!),
-                                    alignment: Alignment.topCenter,
-                                  )
-                                ],
+                                ]),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Population:',
+                              style: TextStyle(
+                                color: Colors.black,
                               ),
-                            ]),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Population:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                            ),
+                            Text(countries![index].population.toString()),
+                          ],
                         ),
-                        Text(countries![index].population.toString()),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Region:',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].subregion.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Capital',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].capital.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Official Language:',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].languages.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Independent:',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].independent.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Area:',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].area.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Currency:',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].currencies.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Timezones:',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].languages.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Date fomart:',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].languages.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Dialing code:',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(countries![index].languages.toString()),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Driving side:',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(countries![index].languages.toString()),
+                          ],
+                        ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Region:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].subregion.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Capital',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].capital.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Official Language:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].languages.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Independent:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].independent.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Area:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].area.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Currency:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].currencies.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Timezones:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].languages.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Date fomart:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].languages.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Dialing code:',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(countries![index].languages.toString()),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Driving side:',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                        Text(countries![index].languages.toString()),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }));
+                  );
+                },
+              ),
+            );
           },
         ),
       ],
